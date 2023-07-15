@@ -18,6 +18,7 @@
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
+    "express": "^4.18.2",
     "jsrsasign": "^10.8.6",
     "next": "13.4.9",
     "postcss": "8.4.25",

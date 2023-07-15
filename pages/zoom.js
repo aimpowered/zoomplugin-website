@@ -22,7 +22,7 @@ const Meeting = () => {
     };
 
     const handleCloseMessage = () => {
-        setIsMessageVisible(false);
+        setIsMessageVisible(false);  
     };
 
     //Zoom SDK
@@ -38,12 +38,13 @@ const Meeting = () => {
                 client.init({
                     language: 'en-US',
                     zoomAppRoot: meetingSDKElement,
+                    enforceVirtualBackground: true,
                     customize: {
                         video: {
                             viewSizes: {
                                 default: {
-                                    height: 500,
-                                    width: 700
+                                    height: 200,
+                                    width: 300
                                 },
                                 ribbon: {
                                     width: 400
