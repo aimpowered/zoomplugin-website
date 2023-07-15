@@ -42,17 +42,19 @@ const Meeting = () => {
                     client.init({
                         language: "en-US",
                         zoomAppRoot: meetingSDKElement,
-                        enforceVirtualBackground: true,
                         customize: {
                             video: {
-                                viewSizes: {
-                                    default: {
-                                        height: 200,
-                                        width: 300,
-                                    },
-                                    ribbon: {
-                                        width: 400,
-                                    },
+                                defaultViewType: "gallery",
+                            },
+                            isResizable: true,
+                            viewSizes: {
+                                default: {
+                                    width: 1000,
+                                    height: 1000
+                                },
+                                ribbon: {
+                                    width: 300,
+                                    height: 1000,
                                 },
                             },
                             chat: {
@@ -129,7 +131,7 @@ const Meeting = () => {
             )}
             {/* Meeting Component and Chatbox Component */}
             <div className="flex">
-                <div className="w-70 flex-auto" id="meetingSDKElement"></div>
+                <div className="w-70 h-4/5 flex-auto" id="meetingSDKElement"></div>
                 <div className="w-30 flex justify-end items-end">
                     <form className="mt-2 flex" onSubmit={handleSubmit}>
                         <input
