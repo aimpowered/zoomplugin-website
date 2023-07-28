@@ -1,41 +1,42 @@
+//Zoom meeting page with Message Popup
 "use client"
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import ZoomMtgEmbedded from "@zoomus/websdk/embedded";
 
 export default function Zoom() {
-    //Chatbox component
+    
+    //Message Popup component
     const [message, setMessage] = useState("");
     const [displayedMessage, setDisplayedMessage] = useState("");
     const [isMessageVisible, setIsMessageVisible] = useState(false);
 
-    const handleSubmit = (e) => {
+    const submitChatMessage = (e) => {
         e.preventDefault();
         setDisplayedMessage(message);
         setMessage("");
         setIsMessageVisible(true);
     };
 
-    const handleChange = (e) => {
-        setMessage(e.target.value);
-    };
-
-    const handleCloseMessage = () => {
+    const closeMessagePopup = () => {
         setIsMessageVisible(false);
     };
 
+    // Get values from URL
     const searchParams = useSearchParams();
     const meetingNumber = searchParams.get("meetingNumber");
     const role = searchParams.get("role");
     const passWord = searchParams.get("passWord");
     const userName = searchParams.get("userName");
 
+    // Join Zoom Meeting with Api calls
     useEffect(() => {
         const joinMeeting = async () => {
             const client = ZoomMtgEmbedded.createClient();
             let meetingSDKElement =
                 document.getElementById("meetingSDKElement");
             try {
+                // Initilize meeting SDK and customize it's default screen
                 await client.init({
                     zoomAppRoot: meetingSDKElement,
                     language: "en-US",
@@ -62,8 +63,10 @@ export default function Zoom() {
                     },
                 });
 
-                let data = null;
+                // Make API call to get signature and sdkKey
+                let response = null;
                 try {
+                    // Send API POST request to get Zoom meeting Signature
                     const response = await fetch("/api/zoom", {
                         method: "POST",
                         headers: {
@@ -79,15 +82,16 @@ export default function Zoom() {
                         throw new Error("Network response was not ok");
                     }
 
-                    // Parse the response data as needed
-                    data = await response.json();
+                    // Parse the response data as JSON
+                    response = await response.json();
                 } catch (error) {
                     console.error("Error fetching data:", error);
                 }
 
+                // Joining Zoom meeting
                 client.join({
-                    signature: data.signature,
-                    sdkKey: data.sdkKey,
+                    signature: response.signature,
+                    sdkKey: response.sdkKey,
                     meetingNumber: meetingNumber,
                     password: passWord,
                     userName: userName,
@@ -102,7 +106,7 @@ export default function Zoom() {
 
     return (
         <div>
-            {/* Displaying chatbox message at top of the screen */}
+            {/* Displaying message popup box */}
             {isMessageVisible && (
                 <div className="flex justify-center" id="messageContainer">
                     <div className="bg-green-500 text-white p-2 rounded-lg mb-2">
@@ -117,7 +121,7 @@ export default function Zoom() {
                                     strokeWidth={1.5}
                                     stroke="currentColor"
                                     className="w-6 h-6"
-                                    onClick={handleCloseMessage}
+                                    onClick={closeMessagePopup}
                                 >
                                     <path
                                         strokeLinecap="round"
@@ -130,19 +134,19 @@ export default function Zoom() {
                     </div>
                 </div>
             )}
-            {/* Meeting Component and Chatbox Component */}
+            {/* Meeting display component and message input component */}
             <div className="flex">
                 <div
                     className="w-70 h-4/5 flex-auto"
                     id="meetingSDKElement"
                 ></div>
                 <div className="w-30 flex justify-end items-end">
-                    <form className="mt-2 flex" onSubmit={handleSubmit}>
+                    <form className="mt-2 flex" onSubmit={submitChatMessage}>
                         <input
                             className="rounded-l-lg textbox"
                             type="text"
                             value={message}
-                            onChange={handleChange}
+                            onChange={(e) => setMessage(e.target.value)}
                             placeholder="Type your message..."
                         />
                         <button

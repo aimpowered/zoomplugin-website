@@ -1,8 +1,10 @@
+// SignIn API endpoint
 import startDB from "@/lib/db";
 import UserModel from "@/models/userModel";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+// Create a jwt session and verify user credentials
 export const authOptions: NextAuthOptions = {
     session: {
         strategy: "jwt",
@@ -39,7 +41,7 @@ export const authOptions: NextAuthOptions = {
                 params.token.role = params.user.role;
                 params.token.id = params.user.id;
             }
-            // reutrn final token
+            // reutrn final_token
             return params.token;
         },
         session({ session, token }) {

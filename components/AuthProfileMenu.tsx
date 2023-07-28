@@ -1,3 +1,4 @@
+// Login / Logout button for Navbad
 "use client";
 
 import { useSession,signOut } from "next-auth/react";

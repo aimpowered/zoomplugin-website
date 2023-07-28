@@ -1,3 +1,4 @@
+//Alert message component (used in Login page errors)
 import React from "react";
 
 interface Props {

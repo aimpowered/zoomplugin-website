@@ -1,3 +1,5 @@
+// Creating Schema to save user data in mongoDB
+// Compare passwords, hash and store
 import { Model, models, model } from "mongoose";
 import { Document, Schema } from "mongoose";
 import bcrupt from "bcrypt";
@@ -13,6 +15,7 @@ interface Methods {
     comparePassword: (password: string) => Promise<boolean>;
 }
 
+//DB Schema
 const userSchema = new Schema<UserDocument, {}, Methods>({
     email: { type: String, required: true, unique: true },
     name: { type: String, required: true, trim: true },
@@ -29,7 +32,7 @@ userSchema.pre("save", async function (next) {
         next();
     } catch (err) {
         throw(err);
-    }
+    }   
 });
 
 //Compare password method
@@ -41,6 +44,7 @@ userSchema.methods.comparePassword = async function (password) {
     }
 };
 
+//Create User model if it doesn't exist
 const UserModel = models.User || model("User", userSchema);
 
 export default UserModel as Model<UserDocument, {}, Methods>;

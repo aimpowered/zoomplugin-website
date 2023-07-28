@@ -14,18 +14,21 @@ const HomePage = () => {
 
     const router = useRouter();
 
+    // Redirect to zoom page with the form data
     const joinMeeting = (event) => {
         event.preventDefault();
 
         // Construct the query string from the form data
         const query = new URLSearchParams(formData).toString();
 
-        // Redirect to the desired page with the query parameters
+        // Redirect to the zoom page
         router.push(`/zoom?${query}`);
     };  
 
-    const handleChange = (event) => {
+    // Handle Meeting Info data
+    const handleMeetingInfo = (event) => {
         const { name, value } = event.target;
+        
         //remove all spaces from meeting number
         if (name == "meetingNumber") {
             var formattedValue = value.replace(/\s/g, "");
@@ -50,7 +53,7 @@ const HomePage = () => {
                         type="text"
                         name="meetingNumber"
                         value={formData.meetingNumber}
-                        onChange={handleChange}
+                        onChange={handleMeetingInfo}
                         placeholder="Enter Meeting ID"
                         className="textbox"
                     />
@@ -63,7 +66,7 @@ const HomePage = () => {
                         type="password"
                         name="passWord"
                         value={formData.passWord}
-                        onChange={handleChange}
+                        onChange={handleMeetingInfo}
                         placeholder="Enter Password"
                         className="textbox"
                     />
@@ -76,7 +79,7 @@ const HomePage = () => {
                         type="text"
                         name="userName"
                         value={formData.userName}
-                        onChange={handleChange}
+                        onChange={handleMeetingInfo}
                         placeholder="Enter User Name"
                         className="textbox"
                     />

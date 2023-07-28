@@ -1,6 +1,9 @@
+// zoom api endpoint for generating signature
 const KJUR = require("jsrsasign");
 
 export const POST = async (req: Request, res: Response) => {
+    
+    //receiving meetingNumber and role
     const body = await req.json();
 
     const iat = Math.round(new Date().getTime() / 1000) - 30;

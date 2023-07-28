@@ -1,3 +1,4 @@
+// Handle User SignIn and SignUp
 import startDB from "@/lib/db";
 import UserModel from "@/models/userModel";
 import { NextResponse } from "next/server";
@@ -12,12 +13,12 @@ interface NewUserResponse {
     id: string;
     name: string;
     email: string;
-    // role: "admin" | "user";
     role: string;
 }
 
 type NewResponse = NextResponse<{ user?: NewUserResponse; error?: string }>;
 
+// Make a POST request to create a new user
 export const POST = async (req: Request): Promise<NewResponse> => {
     const body = (await req.json()) as NewUserRequest;
 
