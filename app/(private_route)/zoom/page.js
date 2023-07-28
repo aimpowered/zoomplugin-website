@@ -67,7 +67,7 @@ export default function Zoom() {
                 let response = null;
                 try {
                     // Send API POST request to get Zoom meeting Signature
-                    const response = await fetch("/api/zoom", {
+                    response = await fetch("/api/zoom", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
