@@ -1,5 +1,6 @@
 //Meeting Register/Join in Page
 "use client"
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -11,6 +12,8 @@ const HomePage = () => {
         userName: "",
         role: 0,
     });
+    
+    const [newMessage, setNewMessage] = useState("");
 
     const router = useRouter();
 
@@ -44,51 +47,82 @@ const HomePage = () => {
         }
     };
 
+      async function sendMessage(ev) {
+          ev.preventDefault();
+          console.log("send message from page file :", newMessage); 
+
+          const data = { newMessage };
+          await axios.post('/api/message', data);
+      };
+
     return (
-        <form onSubmit={joinMeeting} className="max-w-sm mx-auto mt-14">
-            <div className="mb-4">
-                <label className="block mb-2">
-                    Meeting ID:
-                    <input
-                        type="text"
-                        name="meetingNumber"
-                        value={formData.meetingNumber}
-                        onChange={handleMeetingInfo}
-                        placeholder="Enter Meeting ID"
-                        className="textbox"
-                    />
-                </label>
+        <div className="flex justify-center">
+            <div className="flex flex-auto">
+                <form onSubmit={joinMeeting} className="max-w-sm mx-auto mt-14">
+                    <div className="">Join Meeting:</div>
+                    <div className="mb-4">
+                        <label className="block mb-2">
+                            Meeting ID:
+                            <input
+                                type="text"
+                                name="meetingNumber"
+                                value={formData.meetingNumber}
+                                onChange={handleMeetingInfo}
+                                placeholder="Enter Meeting ID"
+                                className="textbox"
+                            />
+                        </label>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block mb-2">
+                            Password:
+                            <input
+                                type="password"
+                                name="passWord"
+                                value={formData.passWord}
+                                onChange={handleMeetingInfo}
+                                placeholder="Enter Password"
+                                className="textbox"
+                            />
+                        </label>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block mb-2">
+                            User Name:
+                            <input
+                                type="text"
+                                name="userName"
+                                value={formData.userName}
+                                onChange={handleMeetingInfo}
+                                placeholder="Enter User Name"
+                                className="textbox"
+                            />
+                        </label>
+                    </div>
+                    <button className="button" type="submit">
+                        Join
+                    </button>
+                </form>
             </div>
-            <div className="mb-4">
-                <label className="block mb-2">
-                    Password:
-                    <input
-                        type="password"
-                        name="passWord"
-                        value={formData.passWord}
-                        onChange={handleMeetingInfo}
-                        placeholder="Enter Password"
-                        className="textbox"
-                    />
-                </label>
+            <div className="flex flex-auto">
+                <form onSubmit={sendMessage} className="max-w-sm mx-auto mt-14">
+                    <label className="block mb-2">
+                        Notes:
+                        <input
+                            type="text"
+                            name="meetingNumber"
+                            value={newMessage}
+                            onChange={(ev) => setNewMessage(ev.target.value)}
+                            placeholder="Enter you message here"
+                            className="textbox"
+                        />
+                    </label>
+                    <button className="button" type="">
+                        Submit
+                    </button>
+                </form>
             </div>
-            <div className="mb-4">
-                <label className="block mb-2">
-                    User Name:
-                    <input
-                        type="text"
-                        name="userName"
-                        value={formData.userName}
-                        onChange={handleMeetingInfo}
-                        placeholder="Enter User Name"
-                        className="textbox"
-                    />
-                </label>
-            </div>
-            <button className="button" type="submit">
-                Join
-            </button>
-        </form>
+        </div>
     );
 };
 
