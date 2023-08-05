@@ -20,3 +20,14 @@ export const POST = async (req: Request, res: Response) => {
 };
 
 
+
+export const GET = async (req: Request, res: Response) => {
+    
+    const data = await MessageModel.find();
+
+    return new Response(
+        JSON.stringify({
+            body:data,
+        })
+    );
+};
