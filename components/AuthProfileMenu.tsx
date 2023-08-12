@@ -11,16 +11,25 @@ export default function AuthProfileMenu() {
 
     if (isAuth)
         return (
-            <p>
-              {data?.user?.name} <button onClick={() => signOut()}>Logout</button>  
-            </p>
+            <div className="flex items-center space-x-2">
+                <p className="text-gray-600">Hello, {data?.user?.name}</p>
+                <button
+                    className="px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+                    onClick={() => signOut()}
+                >
+                    Logout
+                </button>
+            </div>
         );
         return (
-            <ul className="flex items-center space-x-6">
-                <li>
-                <Link href="/">Login</Link>
-               </li>
-            </ul>
+            <div className="flex items-center space-x-2 ">
+                    <Link
+                        href="/"
+                        className="px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+                    >
+                        Login
+                    </Link>
+            </div>
         );  
 
 }
