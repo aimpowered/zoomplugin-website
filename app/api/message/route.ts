@@ -1,68 +1,114 @@
-// Hello World API
-
 import startDB from "@/lib/db";
 import MessageModel from "@/models/messageModel";
 
 export const POST = async (req: Request, res: Response) => {
     const body = await req.json();
-    const msg = body.newMessage;
+    const newMessage = body.newMessage;
+    const userId = body.user;
     
     await startDB();
 
-    const message = await MessageModel.create({ message : msg });
-
+    const message = await MessageModel.findOneAndUpdate(
+            { user: userId },
+            { $push: { messages: newMessage } },
+            { new: true }
+        );
+        
+    if (!message) {
+        await MessageModel.create({ user: userId, messages: [newMessage] });
+    }
     return new Response(
         JSON.stringify({
-            id: message._id.toString(),
-            message: message.message,
-        })
+            message: "Message send successfully.",
+        }),
+        {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+        }
     );
 };
-
-
 
 export const GET = async (req: Request, res: Response) => {
     
     await startDB();
-    
-    const data = await MessageModel.find();
+    const params = new URLSearchParams(req.url.split("?")[1]); // Extract query parameters
 
+    const userId = params.get("id");
+
+    const data = await MessageModel.findOne({ user: userId });
+    
     return new Response(
         JSON.stringify({
-            body:data,
+            body: data.messages
         })
     );
 };
 
 export const DELETE = async (req: Request) => {
-    await startDB();
-    const params = new URLSearchParams(req.url.split('?')[1]); // Extract query parameters
+    try {
+        await startDB();
+        const params = new URLSearchParams(req.url.split("?")[1]);
+        
+        const userId = params.get("user_id");
+        const messageIndexStr = params.get("message_index"); // Get the value as a string
 
-    const messageId = params.get('id');
+        // Parse the message index as an integer, handling the case of NaN
+        const messageIndex = Number(messageIndexStr);
 
-    if (!messageId) {
+        if (!userId || isNaN(messageIndex)) {
+             return new Response(
+                JSON.stringify({
+                    error: "Invalid user ID or message index.",
+                }),
+                {
+                    status: 400,
+                    headers: { "Content-Type": "application/json" },
+                }
+            );
+        }
+
+        const userData = await MessageModel.findOne({ user: userId });
+
+        if (!userData || !userData.messages || messageIndex >= userData.messages.length) {
+            return new Response(
+                JSON.stringify({
+                    error: "User not found or message index out of range.",
+                }),
+                {
+                    status: 404,
+                    headers: { "Content-Type": "application/json" },
+                }
+            );
+        }
+
+        // Remove the indexed message from the array
+        userData.messages.splice(messageIndex, 1);
+
+        // Update the messages array in the document
+        await MessageModel.updateOne(
+            { user: userId },
+            { $set: { messages: userData.messages } }
+        );
+
         return new Response(
             JSON.stringify({
-                error: "Message ID is missing."
+                success: true,
             }),
             {
-                status: 400,
-                headers: { 'Content-Type': 'application/json' }
+                status: 200,
+                headers: { "Content-Type": "application/json" },
+            }
+        );
+    } catch (error) {
+        console.error(error);
+        return new Response(
+            JSON.stringify({
+                error: "An error occurred while processing your request.",
+            }),
+            {
+                status: 500,
+                headers: { "Content-Type": "application/json" },
             }
         );
     }
-
-    await MessageModel.deleteOne({ _id: messageId });
-
-    return new Response(
-        JSON.stringify({
-            body: {
-                id: messageId
-            }
-        }),
-        {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' }
-        }
-    );
 };

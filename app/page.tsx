@@ -17,6 +17,8 @@ const Login = () => {
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { name, value } = target;
+
+    
     setUserInfo({ ...userInfo, [name]: value });
   };
 
@@ -38,7 +40,7 @@ const Login = () => {
         // Check if a session is initialized and redirect to /meeting
         if (session?.user) {
             router.replace("/meeting");
-        }
+      }
     }, [session, router]);
 
   return (
