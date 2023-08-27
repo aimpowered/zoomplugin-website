@@ -4,9 +4,6 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import ZoomMtgEmbedded from "@zoomus/websdk/embedded";
 
-import Test from "../test/page";
-
-
 export default function Zoom() {
     
     //Message Popup component
