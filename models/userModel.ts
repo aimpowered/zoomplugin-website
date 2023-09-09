@@ -1,8 +1,7 @@
 // Creating Schema to save user data in mongoDB
 // Compare passwords, hash and store
-import { Model, models, model } from "mongoose";
-import { Document, Schema } from "mongoose";
-import bcrupt from "bcrypt";
+import { Model, models, model, Document, Schema } from "mongoose";
+import bcrypt from "bcrypt";
 
 interface UserDocument extends Document {
     email: string;
@@ -10,7 +9,7 @@ interface UserDocument extends Document {
     password: string;
     role: "admin" | "user";
 }
-    
+
 interface Methods {
     comparePassword: (password: string) => Promise<boolean>;
 }
@@ -19,29 +18,21 @@ interface Methods {
 const userSchema = new Schema<UserDocument, {}, Methods>({
     email: { type: String, required: true, unique: true },
     name: { type: String, required: true, trim: true },
-    password: { type: String, required: true},
+    password: { type: String, required: true },
     role: { type: String, enum: ["admin", "user"], default: "user" },
 });
 
 //Hash the password before saving
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();
-    try {
-        const salt = await bcrupt.genSalt(10);
-        this.password = await bcrupt.hash(this.password, salt);
-        next();
-    } catch (err) {
-        throw(err);
-    }   
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
 });
 
 //Compare password method
 userSchema.methods.comparePassword = async function (password) {
-    try {
-        return await bcrupt.compare(password, this.password);
-    } catch (err) {
-        throw(err);
-    }
+    return await bcrypt.compare(password, this.password);
 };
 
 //Create User model if it doesn't exist

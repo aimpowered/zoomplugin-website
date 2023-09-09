@@ -5,6 +5,6 @@ const messageSchema = new Schema({
     messages: [{ type: String }],
 });
 
-const MessageModel = models.Message || model('Message', messageSchema);
+const MessageModel = models.Message || model("Message", messageSchema);
 
 export default MessageModel;
