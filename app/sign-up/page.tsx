@@ -1,19 +1,20 @@
 // Signup Page - User sign up only
 "use client";
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
+import { useRouter } from "next/navigation";
 import Alert from "@/components/Alert"; // Import the Alert component
 
 const SignUp = () => {
+    const router = useRouter();
     const [busy, setBusy] = useState(false);
     const [userInfo, setUserInfo] = useState({
         name: "",
         email: "",
         password: "",
     });
-    const [isUserCreated, setIsUserCreated] = useState(false); // State variable to track user creation
+    const [userCreatedStatus, setUserCreatedStatus] = useState(0); 
 
     const { name, email, password } = userInfo;
-    
     const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
         const { name, value } = target;
         setUserInfo({ ...userInfo, [name]: value });
@@ -22,20 +23,29 @@ const SignUp = () => {
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
         setBusy(true);
         e.preventDefault();
-        const res = await fetch("/api/auth/users", { 
+        const res = await fetch("/api/auth/users", {
             method: "POST",
             body: JSON.stringify(userInfo),
-            }).then((res) => res.json());
-        setIsUserCreated(true);
+        })
+        if (res.status == 200){
+            router.push("/");
+        };
+        setUserCreatedStatus(res.status);
         setBusy(false);
     };
 
-return (
+    return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
                 <h2 className="text-2xl font-semibold mb-6">Sign Up</h2>
-                {isUserCreated && (
-                    <Alert value="User created successfully!"  />
+                {userCreatedStatus === 200 ? (
+                    <Alert value="User created successfully!" />
+                ) : userCreatedStatus === 422 ? (
+                    <Alert value="User already exists!" />
+                ) : userCreatedStatus === 0 ? (
+                    <></>
+                ) : (
+                    <Alert value="Error creating user" />
                 )}
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
@@ -67,7 +77,10 @@ return (
                         />
                     </div>
                     <div>
-                        <label htmlFor="password" className="block text-gray-700">
+                        <label
+                            htmlFor="password"
+                            className="block text-gray-700"
+                        >
                             Password
                         </label>
                         <input
@@ -89,6 +102,12 @@ return (
                         Sign Up
                     </button>
                 </form>
+                <p className="mt-4 text-center">
+                    Already a user,{" "}
+                    <a href="/" className="text-blue-500 underline">
+                        log in
+                    </a>
+                </p>
             </div>
         </div>
     );
