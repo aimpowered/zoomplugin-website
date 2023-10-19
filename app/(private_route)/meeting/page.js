@@ -1,95 +1,78 @@
 //Meeting Register/Join in Page
-"use client"
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+"use client";
+// App.js
+import { useSession } from "next-auth/react";
+import JoinMeeting from "./JoinMeeting";
+import { SettingsSharp, PersonSharp } from "react-ionicons";
 
-const HomePage = () => {
-
-    const [formData, setFormData] = useState({
-        meetingNumber: "",
-        passWord: "",
-        userName: "",
-        role: 0,
-    });
-
-    const router = useRouter();
-
-    // Redirect to zoom page with the form data
-    const joinMeeting = (event) => {
-        event.preventDefault();
-
-        // Construct the query string from the form data
-        const query = new URLSearchParams(formData).toString();
-
-        // Redirect to the zoom page
-        router.push(`/zoom?${query}`);
-    };  
-
-    // Handle Meeting Info data
-    const handleMeetingInfo = (event) => {
-        const { name, value } = event.target;
-        
-        //remove all spaces from meeting number
-        if (name == "meetingNumber") {
-            var formattedValue = value.replace(/\s/g, "");
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                [name]: formattedValue,
-            }));
-        } else {
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                [name]: value,
-            }));
-        }
-    };
+function App() {
+    const { data, status } = useSession();
 
     return (
-        <form onSubmit={joinMeeting} className="max-w-sm mx-auto mt-14">
-            <div className="mb-4">
-                <label className="block mb-2">
-                    Meeting ID:
-                    <input
-                        type="text"
-                        name="meetingNumber"
-                        value={formData.meetingNumber}
-                        onChange={handleMeetingInfo}
-                        placeholder="Enter Meeting ID"
-                        className="textbox"
-                    />
-                </label>
+        <div className="p-10">
+            <div className="font-bold text-2xl ">
+                Welcome back {data?.user?.name}!
             </div>
             <div className="mb-4">
-                <label className="block mb-2">
-                    Password:
-                    <input
-                        type="password"
-                        name="passWord"
-                        value={formData.passWord}
-                        onChange={handleMeetingInfo}
-                        placeholder="Enter Password"
-                        className="textbox"
-                    />
-                </label>
+                Good luck in your meetings today, you're going to kill it!
             </div>
-            <div className="mb-4">
-                <label className="block mb-2">
-                    User Name:
-                    <input
-                        type="text"
-                        name="userName"
-                        value={formData.userName}
-                        onChange={handleMeetingInfo}
-                        placeholder="Enter User Name"
-                        className="textbox"
-                    />
-                </label>
+            <div className="flex">
+                <div className="w-2/3 max-w-lg">
+                    <JoinMeeting />
+                </div>
+                <div className="w-1/3 ml-4">
+                    <div className="border border-black rounded-3xl shadow-lg shadow-gray-500 p-4">
+                        <div className="flex text-2xl font-bold mb-4">
+                            <PersonSharp
+                                color={"#00000"}
+                                height="25px"
+                                width="25px"
+                                className="mt-1 mr-2"
+                            />
+                            My Profile
+                        </div>
+                        <div className="ml-8">
+                            <div>
+                                Access features like badge management, journal
+                                viewing, insights, word bank addition, and more.
+                            </div>
+                            <a
+                                href="/profile"
+                                className="text-blue-500 hover:underline mt-4"
+                            >
+                                Edit Profile &gt;
+                            </a>
+                        </div>
+                    </div>
+                    <div className="border border-black rounded-3xl shadow-lg shadow-gray-500 p-4 mt-4">
+                        <div className="flex align-middle text-2xl font-bold mb-4">
+                            {" "}
+                            <SettingsSharp
+                                color={"#00000"}
+                                height="25px"
+                                width="25px"
+                                className="mt-1 mr-2"
+                            />
+                            Setting
+                        </div>
+                        <div className="ml-8">
+                            <div>
+                                Manage your account username, password, contact
+                                information, visual and audio settings, and
+                                more.
+                            </div>
+                            <a
+                                href="/journals"
+                                className="text-blue-500 hover:underline mt-4"
+                            >
+                                Edit Setting &gt;
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button className="button" type="submit">
-                Join
-            </button>
-        </form>
+        </div>
     );
-};
+}
 
-export default HomePage;
+export default App;

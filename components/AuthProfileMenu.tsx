@@ -1,26 +1,38 @@
 // Login / Logout button for Navbad
 "use client";
 
-import { useSession,signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
-import React from "react";
+
+// Define a CSS class for the button style
+const buttonStyle =
+    "block bg-white shadow-md shadow-gray-500 text-xl font-bold py-2 px-4 rounded-full hover:bg-slate-400";
 
 export default function AuthProfileMenu() {
-    const {data, status} = useSession();
+    const { data, status } = useSession();
     const isAuth = status === "authenticated";
 
-    if (isAuth)
+    if (isAuth) {
         return (
             <p>
-              {data?.user?.name} <button onClick={() => signOut()}>Logout</button>  
+                {/* {data?.user?.name}{" "} */}
+                <button
+                    onClick={() => signOut()}
+                    className={`${buttonStyle} w-40`}
+                >
+                    Logout
+                </button>
             </p>
         );
+    } else {
         return (
             <ul className="flex items-center space-x-6">
                 <li>
-                <Link href="/">Login</Link>
-               </li>
+                    <Link href="/" className={`${buttonStyle} w-40 text-center`}>
+                        Login
+                    </Link>
+                </li>
             </ul>
-        );  
-
+        );
+    }
 }
