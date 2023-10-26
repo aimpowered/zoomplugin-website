@@ -1,75 +1,130 @@
+// MyProfile.tsx - User profile page with buttons
+
 //Meeting Register/Join in Page
-"use client";
+"use client"
 // App.js
 import { useSession } from "next-auth/react";
-// import JoinMeeting from "./JoinMeeting";
-import { SettingsSharp, PersonSharp } from "react-ionicons";
+import { BookOutline, BarChartOutline, ChatbubblesOutline, RibbonOutline, BatteryChargingOutline } from "react-ionicons";
+import styled from "styled-components";
+
 
 function App() {
     const { data, status } = useSession();
 
     return (
-        <div className="p-10">
-            <div className="font-bold text-2xl ">
-                Welcome back {data?.user?.name}!
+        <div className="p-10 flex flex-col items-center">
+            <div className="w-full flex justify-start">
+                <a href="#" className="text-black-500 text-2xl">
+                    &lt; Home
+                </a>
             </div>
-            <div className="mb-4">
-                Good luck in your meetings today, you're going to kill it!
-            </div>
-            <div className="flex">
-                <div className="w-2/3 max-w-lg">
-                    {/* <JoinMeeting /> */}
-                </div>
-                <div className="w-1/3 ml-4">
-                    <div className="border border-black rounded-3xl shadow-lg shadow-gray-500 p-4">
-                        <div className="flex text-2xl font-bold mb-4">
-                            <PersonSharp
-                                color={"#00000"}
-                                height="25px"
-                                width="25px"
-                                className="mt-1 mr-2"
-                            />
-                            My Profile
-                        </div>
-                        <div className="ml-8">
-                            <div>
-                                Access features like badge management, journal
-                                viewing, insights, word bank addition, and more.
+            
+            <div className="flex flex-wrap justify-center mx-auto">
+                <div className="w-full md:w-1/2 lg:w-1/3 p-4">
+                    <div className="border rounded-3xl shadow-lg shadow-gray-500 p-4 ml-20 mr-20" style={{ width: "225px", height: "225px", backgroundColor: "#FEBD2F"}}>
+                        <a href="/badge">
+                            <div className="flex flex-col items-center font-bold mb-4">
+                                <RibbonOutline
+                                    color={"#35377D"}
+                                    height="60px"
+                                    width="60px"
+                                    className="mt-1 mr-2"
+                                />
+                                <span style={{ fontSize: "14px", textAlign: "center"}}>Badge</span>
                             </div>
-                            <a
-                                href="/profile"
-                                className="text-blue-500 hover:underline mt-4"
-                            >
-                                Edit Profile &gt;
-                            </a>
-                        </div>
-                    </div>
-                    <div className="border border-black rounded-3xl shadow-lg shadow-gray-500 p-4 mt-4">
-                        <div className="flex align-middle text-2xl font-bold mb-4">
-                            {" "}
-                            <SettingsSharp
-                                color={"#00000"}
-                                height="25px"
-                                width="25px"
-                                className="mt-1 mr-2"
-                            />
-                            Setting
-                        </div>
-                        <div className="ml-8">
-                            <div>
-                                Manage your account username, password, contact
-                                information, visual and audio settings, and
-                                more.
+                            <div className="ml-4 mr-4 my-4">
+                                <div style={{ fontSize: "14px", textAlign: "center"}}>
+                                    Share what makes you uniquely you
+                                </div>
                             </div>
-                            <a
-                                href="/journals"
-                                className="text-blue-500 hover:underline mt-4"
-                            >
-                                Edit Setting &gt;
-                            </a>
-                        </div>
-                    </div>
+                        </a>
+                    </div> 
+                </div>     
+                    
+                <div className="w-full md:w-1/2 lg:w-1/3 p-4">
+                    <div className="border rounded-3xl shadow-lg shadow-gray-500 p-4 ml-20 mr-20" style={{ width: "225px", height: "225px", backgroundColor: "#FEBD2F"}}>
+                        <a href="/bar-chart-outline">
+                            <div className="flex flex-col items-center font-bold mb-4">
+                                <BarChartOutline
+                                    color={"#35377D"}
+                                    height="60px"
+                                    width="60px"
+                                    className="mt-1 mr-2"
+                                />
+                                <span style={{ fontSize: "14px", textAlign: "center"}}>Post-Meeting Summaries</span>
+                            </div>
+                            <div className="ml-4 mr-4 my-4">
+                                <div style={{ fontSize: "14px", textAlign: "center"}}>
+                                    Access past meeting summaries and insights
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
                 </div>
+
+                <div className="w-full md:w-1/2 lg:w-1/3 p-4">
+                    <div className="border rounded-3xl shadow-lg shadow-gray-500 p-4 ml-20 mr-20" style={{ width: "225px", height: "225px", backgroundColor: "#FEBD2F"}}>
+                        <a href="/journal">
+                            <div className="flex flex-col items-center font-bold mb-4">
+                                <BookOutline
+                                    color={"#35377D"}
+                                    height="60px"
+                                    width="60px"
+                                    className="mt-1 mr-2"
+                                />
+                                <span style={{ fontSize: "14px", textAlign: "center"}}>Journal</span>
+                            </div>
+                            <div className="ml-4 mr-4 my-4">
+                                <div style={{ fontSize: "14px", textAlign: "center"}}>
+                                    Review past thoughts or create new ones
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                </div>
+                
+                <div className="w-full md:w-1/2 lg:w-1/3 p-4">
+                    <div className="border rounded-3xl shadow-lg shadow-gray-500 p-4 ml-20 mr-20" style={{ width: "225px", height: "225px", backgroundColor: "#FEBD2F"}}>
+                        <a href="/difficult-word-bank">
+                            <div className="flex flex-col items-center font-bold mb-4">
+                                <BookOutline
+                                    color={"#35377D"}
+                                    height="60px"
+                                    width="60px"
+                                    className="mt-1 mr-2"
+                                />
+                                <span style={{ fontSize: "14px", textAlign: "center"}}>Difficult Word Bank</span>
+                            </div>
+                            <div className="ml-4 mr-4 my-4">
+                                <div style={{ fontSize: "14px", textAlign: "center"}}>
+                                    Identify challenging words and expand your word bank
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                </div>
+
+                <div className="w-full md:w-1/2 lg:w-1/3 p-4">
+                    <div className="border rounded-3xl shadow-lg shadow-gray-500 p-4 ml-20 mr-20" style={{ width: "225px", height: "225px", backgroundColor: "#FEBD2F"}}>
+                        <a href="/relaxation-exercise">
+                            <div className="flex flex-col items-center font-bold mb-4">
+                                <BookOutline
+                                    color={"#35377D"}
+                                    height="60px"
+                                    width="60px"
+                                    className="mt-1 mr-2"
+                                />
+                                <span style={{ fontSize: "14px", textAlign: "center"}}>Relaxation Exercise</span>
+                            </div>
+                            <div className="ml-4 mr-4 my-4">
+                                <div style={{ fontSize: "14px", textAlign: "center"}}>
+                                    Customize meeting relaxation activities
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                </div>
+
             </div>
         </div>
     );
