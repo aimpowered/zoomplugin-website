@@ -1,20 +1,14 @@
 // MyProfile.tsx - User profile page with buttons
-
-//Meeting Register/Join in Page
 "use client"
-// App.js
-import { useSession } from "next-auth/react";
-import { BookOutline, BarChartOutline, ChatbubblesOutline, RibbonOutline, BatteryChargingOutline } from "react-ionicons";
-import styled from "styled-components";
 
+import { BookOutline, BarChartOutline, RibbonOutline, } from "react-ionicons";
 
-function App() {
-    const { data, status } = useSession();
+function Profile() {
 
     return (
         <div className="p-10 flex flex-col items-center">
             <div className="w-full flex justify-start">
-                <a href="#" className="text-black-500 text-2xl">
+                <a href="/meeting" className="text-black-500 text-2xl">
                     &lt; Home
                 </a>
             </div>
@@ -130,4 +124,4 @@ function App() {
     );
 }
 
-export default App;
+export default Profile;
