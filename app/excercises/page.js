@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Icon } from "@iconify/react";
+// import { Icon } from "@iconify/react";
 
 function YouTubeVideo({ videoId, title, description, time }) {
   const boxStyles = {
@@ -23,12 +23,12 @@ function YouTubeVideo({ videoId, title, description, time }) {
           <p className="text-base mt-2">{description}</p>
         </div>
         <div className="flex flex-nowrap gap-2">
-          <Icon
+          {/* <Icon
             icon="ion:time-outline"
             width="20px"
             height="20px"
             style={{ marginTop: "3px" }}
-          />
+          /> */}
           <p className="text-base ">{time}</p>
         </div>
       </div>
