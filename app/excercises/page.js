@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-// import { Icon } from "@iconify/react";
+
 
 function LocalVideo({ videoSource, title, description, time }) {
   const boxStyles = {
@@ -22,7 +22,7 @@ function LocalVideo({ videoSource, title, description, time }) {
           <p className="text-base mt-2">{description}</p>
         </div>
         <div className="flex flex-nowrap gap-2">
-          // <Icon icon="ion:time-outline" width="20px" height="20px" />
+          
           <p className="text-base ">{time}</p>
         </div>
       </div>
