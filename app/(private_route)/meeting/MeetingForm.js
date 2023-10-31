@@ -4,10 +4,10 @@ import { LaptopOutline } from "react-ionicons";
 
 function MeetingForm({ formData, handleMeetingInfo, joinMeeting }) {
     return (
-        <div className="border border-black rounded-3xl shadow-lg shadow-gray-500 p-4  ">
-            <div className="flex text-2xl font-bold mb-4">
+        <div className="border border-black rounded-3xl shadow-lg shadow-gray-500 p-4" style={{ backgroundColor: "#35377D"}}>
+            <div className="flex text-2xl font-bold mb-4" style={{ color: "#FFFFFF" }}>
                 <LaptopOutline
-                    color={"#00000"}
+                    color={"#FFFFFF"}
                     height="25px"
                     width="25px"
                     className="mt-1 mr-4 ml-2"
@@ -17,7 +17,7 @@ function MeetingForm({ formData, handleMeetingInfo, joinMeeting }) {
             <form onSubmit={joinMeeting} className="max-w-sm mx-auto">
                 <div className="mb-4">
                     <label className="block mb-2">
-                        <div className="font-bold mb-2">Meeting ID</div>
+                        <div className="font-bold mb-2" style={{ color: "#FFFFFF" }}>Meeting ID</div>
                         <input
                             type="text"
                             name="meetingNumber"
@@ -30,7 +30,7 @@ function MeetingForm({ formData, handleMeetingInfo, joinMeeting }) {
                 </div>
                 <div className="mb-4">
                     <label className="block mb-2">
-                        <div className="font-bold mb-2">Meeting Password</div>
+                        <div className="font-bold mb-2" style={{ color: "#FFFFFF" }}>Meeting Password</div>
 
                         <input
                             type="password"
@@ -44,7 +44,7 @@ function MeetingForm({ formData, handleMeetingInfo, joinMeeting }) {
                 </div>
                 <div className="mb-4">
                     <label className="block mb-2">
-                        <div className="font-bold mb-2">User Name</div>
+                        <div className="font-bold mb-2" style={{ color: "#FFFFFF" }}>User Name</div>
                         <input
                             type="text"
                             name="userName"
@@ -56,7 +56,7 @@ function MeetingForm({ formData, handleMeetingInfo, joinMeeting }) {
                     </label>
                 </div>
                 <div className="flex justify-end">
-                    <button className="button w-2/5" type="submit">
+                    <button className="button w-2/5" type="submit" style={{ backgroundColor: "#FEBD2F"}}>
                         Join
                     </button>
                 </div>
