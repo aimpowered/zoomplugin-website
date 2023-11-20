@@ -32,14 +32,14 @@ const SignUp = () => {
 
 return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
-                <h2 className="text-2xl font-semibold mb-6">Sign Up</h2>
+            <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-lg" style={{ backgroundColor: "#35377D" }}>
+                <h2 className="text-2xl font-semibold mb-6" style={{ color: 'white' }}>Sign Up</h2>
                 {isUserCreated && (
                     <Alert value="User created successfully!"  />
                 )}
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="name" className="block text-gray-700">
+                        <label htmlFor="name" className="block text-white">
                             Name
                         </label>
                         <input
@@ -53,7 +53,7 @@ return (
                         />
                     </div>
                     <div>
-                        <label htmlFor="email" className="block text-gray-700">
+                        <label htmlFor="email" className="block text-white">
                             Email
                         </label>
                         <input
@@ -67,7 +67,7 @@ return (
                         />
                     </div>
                     <div>
-                        <label htmlFor="password" className="block text-gray-700">
+                        <label htmlFor="password" className="block text-white">
                             Password
                         </label>
                         <input
@@ -81,7 +81,7 @@ return (
                         />
                     </div>
                     <button
-                        className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+                        className="w-full bg-yellow-500 text-black px-4 py-2 rounded-md font-bold hover:bg-blue-600 transition-colors"
                         type="submit"
                         disabled={busy}
                         style={{ opacity: busy ? 0.5 : 1 }}
