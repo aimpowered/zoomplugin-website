@@ -34,12 +34,12 @@ const Login = () => {
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
-                <h2 className="text-2xl font-semibold mb-6">Login</h2>
+            <div className="max-w-md w-full p-6 bg-[#35377D] rounded-lg shadow-lg">
+                <h2 className="text-2xl font-semibold mb-6 text-white">Login</h2>
                 <form onSubmit={handleSubmit}>
                     {error ? <Alert value={error} /> : null}
                     <div className="mb-4">
-                        <label htmlFor="email" className="block text-gray-700">
+                        <label htmlFor="email" className="block text-white">
                             Email
                         </label>
                         <input
@@ -55,7 +55,7 @@ const Login = () => {
                     <div className="mb-4">
                         <label
                             htmlFor="password"
-                            className="block text-gray-700"
+                            className="block text-white"
                         >
                             Password
                         </label>
@@ -71,15 +71,15 @@ const Login = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+                        className="w-full bg-[#FEBD2F] font-bold text-black px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
                     >
                         Login
                     </button>
                 </form>
-                <p className="mt-4 text-center">
+                <p className="mt-4 text-center text-white">
                     I am new,{" "}
                     <a href="/sign-up" className="text-blue-500 underline">
-                        sign up only
+                        sign up
                     </a>
                 </p>
             </div>
